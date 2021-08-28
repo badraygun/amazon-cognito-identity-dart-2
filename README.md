@@ -454,6 +454,31 @@ Create the session and user with the tokens.
 }
 ```
 
+__Use case 20.__ Setting Up Software Token MFA by associating Software Token.
+
+```dart
+String? secretCode;
+try {
+  secretCode = await cognitoUser.setUpSoftwareTokenMFA();
+} catch (e) {
+  print(e);
+}
+print(secretCode);
+```
+
+__Use case 21.__ Verifying Software Token MFA by sending User Code.
+
+```dart
+String userCode = 'USER_SECRET_CODE';
+bool success = false;
+try {
+  success = await cognitoUser.verifySoftwareToken(userCode);
+} catch (e) {
+  print(e);
+}
+print(success);
+```
+
 
 ## Addtional Features
 

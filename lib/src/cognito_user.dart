@@ -986,6 +986,33 @@ class CognitoUser {
     return userData['MFAOptions'];
   }
 
+  /// This is used to setup and associate a TOTP to setup MFA
+  Future<String?> setupSoftwareTokenMFA() async {
+    final paramsReq = {
+      'AccessToken': _signInUserSession!.getAccessToken().getJwtToken(),
+      'Session': _session,
+    };
+
+    final data = await client!.request('AssociateSoftwareToken',
+        await _analyticsMetadataParamsDecorator.call(paramsReq));
+
+    return data['SecretCode'];
+  }
+
+  /// This is used to verify the Software Token Association
+  Future<bool> verifySoftwareToken(String userCode) async {
+    final paramsReq = {
+      'AccessToken': _signInUserSession!.getAccessToken().getJwtToken(),
+      'Session': _session,
+      'UserCode': userCode,
+    };
+
+    final data = await client!.request('VerifySoftwareToken',
+        await _analyticsMetadataParamsDecorator.call(paramsReq));
+
+    return data['Status'] == 'SUCCESS';
+  }
+
   /// This is used to initiate a forgot password request
   Future forgotPassword() async {
     final paramsReq = {
