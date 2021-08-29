@@ -988,10 +988,8 @@ class CognitoUser {
 
   /// This is used to setup and associate a TOTP to setup MFA
   Future<String?> setupSoftwareTokenMFA() async {
-    print("STEP1");
     print(_signInUserSession);
     final paramsReq = {
-      'AccessToken': _signInUserSession!.getAccessToken().getJwtToken(),
       'Session': _session,
     };
 
@@ -1004,7 +1002,6 @@ class CognitoUser {
   /// This is used to verify the Software Token Association
   Future<bool> verifySoftwareToken(String userCode) async {
     final paramsReq = {
-      'AccessToken': _signInUserSession!.getAccessToken().getJwtToken(),
       'Session': _session,
       'UserCode': userCode,
     };
