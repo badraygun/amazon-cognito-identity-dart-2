@@ -992,9 +992,10 @@ class CognitoUser {
     final paramsReq = {
       'Session': _session,
     };
-
     final data = await client!.request('AssociateSoftwareToken',
         await _analyticsMetadataParamsDecorator.call(paramsReq));
+
+    if (data['Session'] != null) _session = data['Session'];
 
     return data['SecretCode'];
   }
