@@ -988,7 +988,6 @@ class CognitoUser {
 
   /// This is used to setup and associate a TOTP to setup MFA
   Future<String?> setupSoftwareTokenMFA() async {
-    print(_signInUserSession);
     final paramsReq = {
       'Session': _session,
     };
@@ -996,7 +995,6 @@ class CognitoUser {
         await _analyticsMetadataParamsDecorator.call(paramsReq));
 
     if (data['Session'] != null) _session = data['Session'];
-    print('Session is: ${data['Session']}');
 
     return data['SecretCode'];
   }
@@ -1012,7 +1010,6 @@ class CognitoUser {
         await _analyticsMetadataParamsDecorator.call(paramsReq));
 
     if (data['Session'] != null) _session = data['Session'];
-    print('Session is: ${data['Session']}');
 
     return data['Status'] == 'SUCCESS';
   }
