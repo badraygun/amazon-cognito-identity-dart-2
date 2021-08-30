@@ -996,6 +996,7 @@ class CognitoUser {
         await _analyticsMetadataParamsDecorator.call(paramsReq));
 
     if (data['Session'] != null) _session = data['Session'];
+    print('Session is: ${data['Session']}');
 
     return data['SecretCode'];
   }
@@ -1009,6 +1010,9 @@ class CognitoUser {
 
     final data = await client!.request('VerifySoftwareToken',
         await _analyticsMetadataParamsDecorator.call(paramsReq));
+
+    if (data['Session'] != null) _session = data['Session'];
+    print('Session is: ${data['Session']}');
 
     return data['Status'] == 'SUCCESS';
   }
